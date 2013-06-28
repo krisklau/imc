@@ -1396,12 +1396,6 @@
   </message>
 
   <message id="170" name="Received Iridium Message" abbrev="IridiumMsgRx" source="vehicle,ccu">
-    <field name="Origin Identifier" abbrev="origin" type="plaintext">
-      <description>The unique identifier of this message's origin device (e.g. lauv-xtreme-2, manta-0).</description>
-    </field>
-    <field name="Timestamp" abbrev="htime" type="fp64_t" unit="s">
-        <description>Timestamp (Epoch time).</description>
-    </field>
     <field name="Latitude Reference" abbrev="lat" type="fp64_t" unit="rad" />
     <field name="Longitude Reference" abbrev="lon" type="fp64_t" unit="rad" />
     <field name="Data" abbrev="data" type="rawdata">
