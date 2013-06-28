@@ -205,6 +205,8 @@
     <unit abbrev="rpm/s" name="Revolutions per minute per second"/>
     <unit abbrev="s" name="Second"/>
     <unit abbrev="V" name="Volt"/>
+    <unit abbrev="W" name="Watt"/>
+    <unit abbrev="W/byte" name="Watt per byte"/>
     <unit abbrev="Enumerated" name="Enumeration of integer values"/>
     <unit abbrev="List" name="Comma separated list of values"/>
     <unit abbrev="Bitfield" name="Bit field"/>
