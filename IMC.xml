@@ -1442,6 +1442,128 @@
     <field name="Status Text" abbrev="text" type="plaintext"/>
   </message>
 
+  <message id="173" name="Query GSM Devices" abbrev="QueryGsmDevices" source="vehicle,ccu">
+    <description>
+      Request GSM devices to advertise their existence and
+      characteristics. Each such device shall reply with a GsmDevice
+      message.
+    </description>
+  </message>
+
+  <message id="174" name="GSM Device" abbrev="GsmDevice" source="vehicle,ccu">
+    <description>
+      Characteristics of a GSM capable device.
+    </description>
+    <field name="Vendor" abbrev="vendor" type="plaintext">
+      <description>
+        Device's vendor.
+      </description>
+    </field>
+    <field name="Model" abbrev="model" type="plaintext">
+      <description>
+        Device's model.
+      </description>
+    </field>
+    <field name="IMEI" abbrev="imei" type="plaintext">
+      <description>
+        Device's IMEI.
+      </description>
+    </field>
+    <field name="Transmit Cost" abbrev="tx_mon_cost" type="fp32_t">
+      <description>
+        Monetary cost of transmitting one byte of data.
+      </description>
+    </field>
+    <field name="Receive Cost" abbrev="rx_mon_cost" type="fp32_t">
+      <description>
+        Monetary cost of receiving one byte of data.
+      </description>
+    </field>
+    <field name="Transmit Power Cost" abbrev="tx_pwr_cost" type="fp32_t" unit="W/byte">
+      <description>
+        Power cost of transmitting one byte of data.
+      </description>
+    </field>
+    <field name="Receive Power Cost" abbrev="rx_pwr_power" type="fp32_t" unit="W/byte">
+      <description>
+        Power cost of receiving one byte of data.
+      </description>
+    </field>
+    <field name="Maximum Transmission Unit" abbrev="mtu" type="uint16_t">
+      <description>
+        Maximum Transmission Unit.
+      </description>
+    </field>
+    <field name="Maximum Receive Unit" abbrev="mru" type="uint16_t">
+      <description>
+        Maximum Receive Unit.
+      </description>
+    </field>
+  </message>
+
+  <message id="175" name="Received GSM Message" abbrev="GsmMsgRx" source="vehicle,ccu">
+    <field name="Origin Identifier" abbrev="origin" type="plaintext">
+      <description>
+        The unique identifier of this message's origin device
+        (e.g. lauv-xtreme-2, manta-0).
+      </description>
+    </field>
+    <field name="Timestamp" abbrev="htime" type="fp64_t" unit="s">
+      <description>Timestamp (Epoch time).</description>
+    </field>
+    <field name="Data" abbrev="data" type="rawdata">
+      <description>
+        Message data.
+      </description>
+    </field>
+  </message>
+
+  <message id="176" name="Transmit GSM Message" abbrev="GsmMsgTx" source="vehicle,ccu">
+    <field name="Request Identifier" abbrev="req_id" type="uint16_t">
+      <description>
+        The request identifier used to receive transmission updates.
+      </description>
+    </field>
+    <field name="Destination Identifier" abbrev="destination" type="plaintext">
+      <description>
+        The unique identifier of this message's destination
+        (e.g. lauv-xtreme-2, manta-0).
+      </description>
+    </field>
+    <field name="Time to live" abbrev="ttl" type="uint16_t" unit="s">
+      <description>
+        Time, in seconds, after which there will be no more attempts to
+        transmit the message.
+      </description>
+    </field>
+    <field name="Data" abbrev="data" type="rawdata">
+      <description>
+        Message data.
+      </description>
+    </field>
+  </message>
+
+  <message id="177" name="Cancel GSM Transmission" abbrev="GsmMsgTxCancel" source="vehicle">
+    <field name="Request Identifier" abbrev="req_id" type="uint16_t"/>
+  </message>
+
+  <message id="178" name="GSM Transmission Status" abbrev="GsmMsgTxStatus" source="vehicle,ccu">
+    <field name="Request Identifier" abbrev="req_id" type="uint16_t">
+      <description>
+        The request identifier used to receive transmission updates.
+      </description>
+    </field>
+    <field name="Status Code" abbrev="status" type="uint8_t" unit="Enumerated" prefix="TXSTATUS">
+      <value abbrev="OK" name="Successfull transmission" id="1"/>
+      <value abbrev="ERROR" name="Error while trying to transmit message" id="2"/>
+      <value abbrev="QUEUED" name="Message has been queued for transmission" id="3"/>
+      <value abbrev="TRANSMIT" name="Message is currently being transmitted" id="4"/>
+      <value abbrev="EXPIRED" name="Transmission cancelled due to TTL expiration" id="5"/>
+      <value abbrev="CANCELLED" name="Transmission cancelled by external request" id="6"/>
+    </field>
+    <field name="Status Text" abbrev="text" type="plaintext"/>
+  </message>
+
 
   <!-- Acoustic Networking -->
   <message id="200" name="LBL Range" abbrev="LblRange" source="vehicle" flags="periodic">
