@@ -299,6 +299,17 @@
       <value id="0x20" name="Maximum Vertical Rate" abbrev="MAX_VRATE"/>
       <value id="0x40" name="Operation Area" abbrev="AREA"/>
     </def>
+    
+    <def prefix="NSP" name="Navigation Source Position Mask" abbrev="NavSourcePosMask">
+        <value id="0x0001" name="Internal" abbrev="INTERNAL"/>
+        <value id="0x0002" name="Mavlink" abbrev="MAVLINK"/>
+        <value id="0x0004" name="GPS RTK" abbrev="RTK"/>
+    </def>
+    
+    <def prefix="NSA" name="Navigation Source Attitude Mask" abbrev="NavSourceAttMask">
+        <value id="0x0001" name="Internal" abbrev="INTERNAL"/>
+        <value id="0x0002" name="Mavlink" abbrev="MAVLINK"/>
+    </def>
   </bitfields>
 
   <message-groups>
@@ -3859,6 +3870,59 @@
         Sideslip angle.
       </description>
     </field>
+  </message>
+  
+  <message id="365" name="Available Navigation Sources" abbrev="AvailableNavSources" source="vehicle">
+      <description>
+          Mask of currently available soruces for navigation
+      </description>
+      
+      <field name="Available Position Sources" abbrev="pos"  type="uint16_t" unit="Bitfield" bitfield-def="NavSourcePosMask">
+         <description>
+            Mask of currently available position sources. 
+         </description>
+     </field>
+     
+     <field name="Available Attitude Sources" abbrev="att" type="uint16_t" unit="Bitfield" bitfield-def="NavSourceAttMask">
+         <description>
+            Mask of currently available attitude sources. 
+        </description>
+     </field>
+     
+     <field name="Scope Reference" abbrev="scope_ref" type="uint32_t">
+         <description>
+             Unsigned integer reference for the scope of the current availability.
+             When a change in availability is detected, the reference is incremented. 
+             An answer of the type UseNavigationSources is expected, with a equal or greater scope_ref.
+         </description>
+     </field>
+        
+  </message>
+  
+  <message id="366" name="Use Navigation Sources" abbrev="UseNavSources" source="vehicle">
+      <description>
+          Flags of navigation sources to use. 
+      </description>
+      
+      <field name="Use Position Sources" abbrev="pos"  type="uint16_t" unit="Bitfield" bitfield-def="NavSourcePosMask">
+          <description>
+              Mask of current position sources to use. 
+          </description>
+      </field>
+      
+      <field name="Available Attitude Sources" abbrev="att" type="uint16_t" unit="Bitfield" bitfield-def="NavSourceAttMask">
+          <description>
+              Mask of current attitude sources to use. 
+          </description>
+      </field>
+      
+      <field name="Scope Reference" abbrev="scope_ref" type="uint32_t">
+          <description>
+              Unsigned integer reference for the scope of the current availability.
+              When a change in availability is detected, the reference is incremented. 
+              An answer of the type UseNavigationSources is expected, with a equal or greater scope_ref.
+          </description>
+      </field>
   </message>
 
   <!-- Guidance -->
